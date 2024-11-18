@@ -9,38 +9,6 @@ fi
 
 set -euo pipefail  # Enable strict error handling
 
-# Function to check AWS authentication status
-check_aws_auth() {
-    # First check if instance profile credentials are available
-    if curl -s -m 1 "http://169.254.169.254/latest/meta-data/iam/security-credentials/" &> /dev/null; then
-        echo "Using IAM Instance Profile credentials"
-        return 0
-    fi
-    
-    # Check if AWS credentials are configured
-    if aws sts get-caller-identity &> /dev/null; then
-        echo "AWS credentials verified successfully"
-        return 0
-    else
-        echo "Error: No valid AWS credentials found" >&2
-        echo "Please either:" >&2
-        echo "  1. Attach an IAM role to this EC2 instance (recommended)" >&2
-        echo "  2. Configure AWS credentials using aws configure" >&2
-        exit 1
-    fi
-}
-
-# Modified check_aws_cli function
-# check_aws_cli() {
-#     if ! command -v aws &> /dev/null; then
-#         echo "Error: AWS CLI is not installed" >&2
-#         exit 1
-#     fi
-    
-#     # Check AWS authentication after verifying CLI installation
-#     check_aws_auth
-# }
-
 # Function to check AWS CLI is installed
 check_aws_cli() {
     if ! command -v aws &> /dev/null; then

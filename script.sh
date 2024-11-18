@@ -196,10 +196,10 @@ update_packages() {
     
     if [ $UPDATE_EXIT_CODE -eq 0 ]; then
         echo "System update completed successfully"
-        return 0
+        exit 0
     else
         echo "Error occurred during system update" >&2
-        return 1
+        exit 1
     fi
 }
 

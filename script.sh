@@ -184,8 +184,8 @@ update_packages() {
     
     # Show what would be updated
     echo "The following packages will be updated:"
-    yum --config /tmp/yum-exclude.conf update --assumeno
-    
+    yum --config /tmp/yum-exclude.conf check-update
+
     # Perform the actual update
     echo -e "\nPerforming update..."
     yum --config /tmp/yum-exclude.conf update -y
@@ -251,7 +251,6 @@ if check_updates; then
     echo "Snapshots created successfully. You can now proceed with system updates."
 
     update_packages
-    update_kernel
     exit 0
 else
     echo "No updates available. Skipping snapshot creation."

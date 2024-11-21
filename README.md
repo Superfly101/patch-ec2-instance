@@ -6,8 +6,7 @@ This bash script automates the process of safely updating AWS EC2 instances by c
 
 - Automatic EBS volume snapshot creation before updates
 - Support for both IMDSv2 and IMDSv1 metadata retrieval
-- Selective package updates (excludes filebeat)
-- Separate kernel update handling with automatic reboot scheduling
+- Selective package updates (excludes filebeata and kernel)
 - AWS resource tagging for better organization
 - Comprehensive error handling and logging
 
@@ -42,8 +41,7 @@ This bash script automates the process of safely updating AWS EC2 instances by c
 ### Update Management
 
 - Checks for available system updates
-- Excludes filebeat packages from updates
-- Separates kernel updates from regular package updates
+- Excludes filebeat and kernel packages from updates
 - Implements safe update procedures
 
 ### Snapshot Management
@@ -63,9 +61,7 @@ This bash script automates the process of safely updating AWS EC2 instances by c
 
 1. Checks for available updates
 2. Creates snapshots if updates are found
-3. Performs system updates (excluding filebeat)
-4. Handles kernel updates separately
-5. Schedules automatic reboot if kernel is updated
+3. Performs system updates (excluding filebeat and kernel)
 
 ## Usage
 
@@ -88,8 +84,7 @@ sudo ./script.sh
 
 ## Notes
 
-- The script excludes filebeat packages from updates
-- Kernel updates trigger a system reboot after 1 minute
+- The script excludes filebeat and kernel packages from updates
 - All snapshots must complete successfully for updates to proceed
 - Instance must have appropriate IAM permissions for AWS API calls
 
@@ -102,7 +97,6 @@ The script includes comprehensive error handling for:
 - Metadata retrieval
 - Snapshot creation
 - Update process
-- Kernel updates
 
 ## Dependencies
 

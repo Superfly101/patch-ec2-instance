@@ -181,10 +181,6 @@ update_packages() {
     
     # Create temporary yum configuration file
     echo -e "[main]\nexclude=filebeat* kernel*" > /tmp/yum-exclude.conf
-    
-    # Show what would be updated
-    echo "The following packages will be updated:"
-    yum --config /tmp/yum-exclude.conf check-update
 
     # Perform the actual update
     echo -e "\nPerforming update..."
@@ -200,32 +196,6 @@ update_packages() {
     else
         echo "Error occurred during system update" >&2
         exit 1
-    fi
-}
-
-# Function to install Kernel update
-update_kernel() {
-    CURRENT_KERNEL=$(uname -r)
-    echo "Current kernel version: $CURRENT_KERNEL"
-
-    # Check for kernel updates
-    if yum list kernel | grep -q "Available Packages"; then
-        echo "Kernel update available"
-        
-        # Install kernel update
-        if yum update kernel -y; then
-            NEW_KERNEL=$(rpm -q --last kernel | head -n 1 | sed 's/kernel-//')
-            echo "Kernel updated to: $NEW_KERNEL"
-            echo "Rebooting system in 1 minute to apply new kernel..."
-            shutdown -r +1 "System rebooting for kernel update"
-            exit 0
-        else
-            echo "Kernel update failed"
-            exit 1
-        fi
-    else
-        echo "No kernel update found"
-        exit 0
     fi
 }
 

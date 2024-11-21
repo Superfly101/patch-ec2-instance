@@ -73,7 +73,7 @@ check_instance() {
 # Function to check for available updates excluding filebeat
 check_updates() {
     # Create a temporary yum configuration file to exclude filebeat
-    echo -e "[main]\nexclude=filebeat*" > /tmp/yum-exclude.conf
+    echo -e "[main]\nexclude=filebeat* kernel*" > /tmp/yum-exclude.conf
     
     # Run yum check-update with the temporary config
     UPDATES=$(yum --config /tmp/yum-exclude.conf check-update -q)

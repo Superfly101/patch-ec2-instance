@@ -199,7 +199,6 @@ update_packages() {
     fi
 }
 
-
 # Main execution starts here
 # Get instance ID and region from metadata service
 INSTANCE_ID=$(get_metadata "instance-id")
@@ -223,6 +222,7 @@ if check_updates; then
     update_packages
     exit 0
 else
-    echo "No updates available. Skipping snapshot creation."
+    echo "No new updates are available. Skipping snapshot creation."
+    echo "System is up to date."
     exit 0
 fi
